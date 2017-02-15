@@ -8,6 +8,7 @@ import java.util.*
 
 class Board(val xSize: Int = 15, val ySize: Int = 15, val numBombs: Int = 30){
     val contents = Array(ySize) { y -> Array(xSize) { x -> Tile(x, y) } }
+    var doneFirst = false
 
     internal fun init() {
         (0..numBombs-1).forEach { get(Random().nextInt(xSize), Random().nextInt(ySize))?.isBomb = true }
@@ -23,6 +24,10 @@ class Board(val xSize: Int = 15, val ySize: Int = 15, val numBombs: Int = 30){
 
     fun reveal(x: Int, y: Int): Boolean {
         val tile = get(x, y) ?: throw RuntimeException("Invalid position ($x, $y)")
+        if (!doneFirst){
+            doneFirst = true
+            tile.isBomb = false
+        }
         if (tile.isBomb) return true
         if (!tile.isRevealed) tile.isRevealed = true else throw RuntimeException("Already revealed ($x, $y)")
         if (tile.surrounding == 0) {

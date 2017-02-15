@@ -1,6 +1,6 @@
 package minesweeper.logic
 
-import minesweeper.write
+import minesweeper.player.write
 
 /**
  * Created by Aedan Smith.

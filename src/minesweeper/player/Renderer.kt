@@ -1,4 +1,4 @@
-package minesweeper
+package minesweeper.player
 
 import minesweeper.logic.Board
 import minesweeper.util.AnsiColor
