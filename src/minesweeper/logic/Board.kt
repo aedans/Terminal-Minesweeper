@@ -1,4 +1,4 @@
-package minesweeper
+package minesweeper.logic
 
 import java.util.*
 
@@ -6,10 +6,10 @@ import java.util.*
  * Created by Aedan Smith.
  */
 
-class Board(val xSize: Int = 15, val ySize: Int = 15, numBombs: Int = 30){
+class Board(val xSize: Int = 15, val ySize: Int = 15, val numBombs: Int = 30){
     val contents = Array(ySize) { y -> Array(xSize) { x -> Tile(x, y) } }
 
-    init {
+    internal fun init() {
         (0..numBombs-1).forEach { get(Random().nextInt(xSize), Random().nextInt(ySize))?.isBomb = true }
         contents.forEachIndexed { y, tiles -> tiles.forEachIndexed { x, tile ->
             var surrounding = 0
@@ -21,14 +21,9 @@ class Board(val xSize: Int = 15, val ySize: Int = 15, numBombs: Int = 30){
         } }
     }
 
-    fun reveal(x: Int, y: Int) {
+    fun reveal(x: Int, y: Int): Boolean {
         val tile = get(x, y) ?: throw RuntimeException("Invalid position ($x, $y)")
-        if (tile.isBomb) {
-            revealAll()
-            render()
-            printAnsi("You lose", AnsiColor.RED)
-            System.exit(0)
-        }
+        if (tile.isBomb) return true
         if (!tile.isRevealed) tile.isRevealed = true else throw RuntimeException("Already revealed ($x, $y)")
         if (tile.surrounding == 0) {
             surrounding(x, y).filterNotNull().forEach {
@@ -41,6 +36,7 @@ class Board(val xSize: Int = 15, val ySize: Int = 15, numBombs: Int = 30){
                 }
             }
         }
+        return false
     }
 
     fun revealAll() = contents.forEach { it.forEach { it.isRevealed = true } }

@@ -1,12 +1,14 @@
 package minesweeper
 
-import java.io.PrintStream
+import minesweeper.logic.Board
+import minesweeper.util.AnsiColor
+import minesweeper.util.printAnsi
 
 /**
  * Created by Aedan Smith.
  */
 
-fun Board.render() {
+fun Board.write() {
     printAnsi("# ", AnsiColor.YELLOW)
     for (i in 0..this.xSize-1){ printAnsi((i + 'A'.toInt()).toChar() + " ", AnsiColor.YELLOW) }
     this.contents.forEachIndexed { i, tiles ->
@@ -38,5 +40,3 @@ fun Board.render() {
     }
     println()
 }
-
-fun printAnsi(s: String, color: AnsiColor, out: PrintStream = System.out) = out.print("\u001b${color.escape}$s")

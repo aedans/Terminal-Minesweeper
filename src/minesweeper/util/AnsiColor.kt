@@ -1,4 +1,6 @@
-package minesweeper
+package minesweeper.util
+
+import java.io.PrintStream
 
 /**
  * Created by Aedan Smith.
@@ -14,3 +16,5 @@ enum class AnsiColor(val escape: String) {
     CYAN("[36m"),
     WHITE("[37m")
 }
+
+fun printAnsi(s: String, color: AnsiColor, out: PrintStream = System.out) = out.print("\u001b${color.escape}$s")
