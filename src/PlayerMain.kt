@@ -32,7 +32,7 @@ class HumanPlayer(val input: Scanner) : Player {
             game.write()
             val s = input.nextLine()
             if (s.toLowerCase().startsWith("flag ")) {
-                game.get(s[5].toInt() - 'A'.toInt(), s[6].toInt() - '0'.toInt())?.isFlagged = true
+                game.flag(s[5].toInt() - 'A'.toInt(), s[6].toInt() - '0'.toInt())
                 return
             }
             game.reveal(s[0].toInt() - 'A'.toInt(), s[1].toInt() - '0'.toInt())
