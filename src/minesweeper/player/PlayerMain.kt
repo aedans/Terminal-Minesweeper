@@ -1,7 +1,7 @@
 package minesweeper.player
 
 import minesweeper.logic.Board
-import minesweeper.logic.MinesweeperGame
+import minesweeper.logic.Game
 import java.util.*
 
 /**
@@ -18,7 +18,7 @@ fun main(args: Array<String>){
     val bombs = input.nextLine().toInt()
     println()
 
-    MinesweeperGame(
+    Game(
             HumanPlayer(input),
             Board(x, y, bombs)
     ).run()

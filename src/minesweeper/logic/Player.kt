@@ -5,7 +5,7 @@ package minesweeper.logic
  */
 
 interface Player {
-    fun doMove(game: MinesweeperGame)
+    fun doMove(game: Game)
     fun onVictory(board: Board)
     fun onDefeat(board: Board)
 }

@@ -12,6 +12,10 @@ class Board(val xSize: Int = 15, val ySize: Int = 15, val numBombs: Int = 30){
 
     internal fun init() {
         (0..numBombs-1).forEach { get(Random().nextInt(xSize), Random().nextInt(ySize))?.isBomb = true }
+        calculateSurrounding()
+    }
+
+    fun calculateSurrounding(){
         contents.forEachIndexed { y, tiles -> tiles.forEachIndexed { x, tile ->
             var surrounding = 0
             surrounding(x, y).forEach {
@@ -27,6 +31,8 @@ class Board(val xSize: Int = 15, val ySize: Int = 15, val numBombs: Int = 30){
         if (!doneFirst){
             doneFirst = true
             tile.isBomb = false
+            surrounding(x, y).forEach { it?.isBomb = false }
+            calculateSurrounding()
         }
         if (tile.isBomb) return true
         if (!tile.isRevealed) tile.isRevealed = true else throw RuntimeException("Already revealed ($x, $y)")

@@ -1,14 +1,14 @@
 package minesweeper.player
 
 import minesweeper.logic.Board
-import minesweeper.logic.MinesweeperGame
+import minesweeper.logic.Game
 import minesweeper.logic.Player
 import minesweeper.util.AnsiColor
 import minesweeper.util.printAnsi
 import java.util.*
 
 class HumanPlayer(val input: Scanner) : Player {
-    override fun doMove(game: MinesweeperGame) {
+    override fun doMove(game: Game) {
         try {
             game.write()
             val s = input.nextLine()
